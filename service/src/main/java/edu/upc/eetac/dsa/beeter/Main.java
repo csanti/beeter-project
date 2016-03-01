@@ -33,7 +33,7 @@ public class Main {
     public static HttpServer startServer() {
         // create a resource config that scans for JAX-RS resources and providers
         // in edu.upc.eetac.dsa.beeter package
-        final ResourceConfig rc = new ResourceConfig().packages("edu.upc.eetac.dsa.beeter");
+        final BeeterResourceConfig rc = new BeeterResourceConfig();
 
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
