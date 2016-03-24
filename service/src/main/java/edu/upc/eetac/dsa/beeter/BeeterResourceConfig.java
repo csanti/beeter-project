@@ -11,6 +11,7 @@ public class BeeterResourceConfig extends ResourceConfig {
     public BeeterResourceConfig() {
         packages("edu.upc.eetac.dsa.beeter");
         packages("edu.upc.eetac.dsa.beeter.auth");
+        packages("edu.upc.eetac.dsa.beeter.cors");
         register(RolesAllowedDynamicFeature.class);
         register(DeclarativeLinkingFeature.class);
     }
