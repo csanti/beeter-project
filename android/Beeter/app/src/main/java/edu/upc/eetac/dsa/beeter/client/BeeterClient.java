@@ -24,7 +24,7 @@ import edu.upc.eetac.dsa.beeter.client.entity.Root;
  * Created by carlos on 9/05/16.
  */
 public class BeeterClient {
-    private final static String BASE_URI = "http://192.168.1.131:8080/beeter";
+    private final static String BASE_URI = "http://10.0.2.2:8080/beeter";
     private static BeeterClient instance;
     private Root root;
     private ClientConfig clientConfig = null;
@@ -77,5 +77,27 @@ public class BeeterClient {
         authToken = (new Gson()).fromJson(json, AuthToken.class);
         Log.d(TAG, json);
         return true;
+    }
+
+    public String getStings(String uri) throws BeeterClientException {
+        if(uri==null){
+            uri = getLink(authToken.getLinks(), "current-stings").getUri().toString();
+        }
+        WebTarget target = client.target(uri);
+        Response response = target.request().get();
+        if (response.getStatus() == Response.Status.OK.getStatusCode())
+            return response.readEntity(String.class);
+        else
+            throw new BeeterClientException(response.readEntity(String.class));
+    }
+
+    public String getSting(String uri) throws BeeterClientException {
+        WebTarget target = client.target(uri);
+        Response response = target.request().get();
+        if (response.getStatus() == Response.Status.OK.getStatusCode())
+            return response.readEntity(String.class);
+        else
+            throw new BeeterClientException(response.readEntity(String.class));
+
     }
 }
