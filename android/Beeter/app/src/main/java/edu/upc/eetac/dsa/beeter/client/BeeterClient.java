@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import edu.upc.eetac.dsa.beeter.client.entity.AuthToken;
 import edu.upc.eetac.dsa.beeter.client.entity.Link;
 import edu.upc.eetac.dsa.beeter.client.entity.Root;
+import edu.upc.eetac.dsa.beeter.client.entity.Sting;
 
 /**
  * Created by carlos on 9/05/16.
@@ -99,5 +100,17 @@ public class BeeterClient {
         else
             throw new BeeterClientException(response.readEntity(String.class));
 
+    }
+
+    public boolean createSting(Sting sting) throws BeeterClientException {
+        String uri = BASE_URI + "/stings";
+        WebTarget target = client.target(uri);
+        target.request().header("X-Auth-Token", authToken.getToken());
+        Form form = new Form();
+        form.param("subject", sting.getSubject());
+        form.param("content", sting.getContent());
+        String json = target.request().post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE), String.class);
+        Log.d(TAG, json);
+        return true;
     }
 }

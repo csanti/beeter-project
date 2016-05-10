@@ -53,6 +53,16 @@ public class StingsListActivity extends AppCompatActivity {
             }
         });
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "Click crear Sting");
+                Intent intent = new Intent(StingsListActivity.this, CreateStingActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // Execute AsyncTask
         mGetStingsTask = new GetStingsTask(null);
         mGetStingsTask.execute((Void) null);
